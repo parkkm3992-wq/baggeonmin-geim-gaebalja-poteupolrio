@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "박건민 · 게임 개발자 포트폴리오"
+description = "게임 개발자를 목표로 하는 박건민의 반응형 포트폴리오 웹사이트입니다. 제공된 이력과 기술만 담고, 프로젝트는 추가 정보가 없음을 정직하게 표시합니다."
+version = "1.0.0"
+id = "artifacts/geonmin-portfolio"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 24628
+
+[services.development]
+run = "pnpm --filter @workspace/geonmin-portfolio run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/geonmin-portfolio", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/geonmin-portfolio/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "24628"
+BASE_PATH = "/"
